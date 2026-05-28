@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peptidia · Retatrutide 20 mg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        },
+        colors: {
+          ink: '#0F1419',
+          paper: '#FBFAF7',
+          muted: '#6F6F6A',
+          line: '#E5E2DA',
+          accent: '#1B4332',
+        },
+      },
+    },
+  }
+</script>
+<style>
+  * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #FBFAF7;
+    color: #0F1419;
+    font-feature-settings: 'tnum' 1, 'kern' 1, 'cv11' 1;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+  }
+  .h-massive { font-weight: 800; font-size: clamp(2.75rem, 8vw, 6.25rem); line-height: 0.98; letter-spacing: -0.04em; }
+  .h-large   { font-weight: 700; font-size: clamp(2rem, 4.5vw, 3.25rem); line-height: 1.05; letter-spacing: -0.032em; }
+  .h-medium  { font-weight: 700; font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.15; letter-spacing: -0.024em; }
+  .eyebrow { font-weight: 700; font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; color: #0F1419; }
+  .lead { font-weight: 400; font-size: clamp(1.0625rem, 1.4vw, 1.1875rem); line-height: 1.6; color: #2C3038; }
+  .spec-row { display: grid; grid-template-columns: 1fr 1.4fr; padding: 0.875rem 1rem; border-bottom: 1px solid #E5E2DA; }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-label { font-size: 0.9375rem; color: #6F6F6A; }
+  .spec-value { font-size: 0.9375rem; color: #0F1419; text-align: right; font-weight: 500; }
+  .stat-card { border: 1px solid #0F1419; padding: 1.5rem 1.25rem; background: #FBFAF7; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.9375rem 1.75rem; font-weight: 500; font-size: 1rem; letter-spacing: 0; border: 1px solid #0F1419; cursor: pointer; transition: all .18s ease; }
+  .btn-primary { background: #0F1419; color: #FBFAF7; }
+  .btn-primary:hover { background: #1B4332; border-color: #1B4332; }
+  .btn-secondary { background: transparent; color: #0F1419; }
+  .btn-secondary:hover { background: #0F1419; color: #FBFAF7; }
+  .btn-light { background: #FBFAF7; color: #0F1419; border-color: #FBFAF7; }
+  .btn-light:hover { background: transparent; color: #FBFAF7; border-color: #FBFAF7; }
+  .bundle { border: 1px solid #E5E2DA; background: #FBFAF7; transition: border-color .2s ease, transform .2s ease; }
+  .bundle:hover { border-color: #0F1419; transform: translateY(-2px); }
+  .bundle.featured { background: #0F1419; color: #FBFAF7; border-color: #0F1419; }
+  .bundle.featured .price-strike { color: rgba(251,250,247,0.4); }
+  .scroll-mt { scroll-margin-top: 5rem; }
+  details[open] summary .chev { transform: rotate(45deg); }
+  .chev { transition: transform .2s ease; display: inline-block; }
+  .num-fig { font-feature-settings: 'tnum' 1, 'lnum' 1; }
+  .price-strike { color: #6F6F6A; text-decoration: line-through; font-size: 1rem; }
+  hr.lab { border: 0; border-top: 1px solid #E5E2DA; margin: 0; }
+  .dot { padding: 0 0.5em; color: #6F6F6A; }
+  .dot::before { content: '·'; }
+  blockquote.pull { font-weight: 600; font-size: clamp(1.375rem, 2.4vw, 1.875rem); line-height: 1.3; letter-spacing: -0.022em; color: #0F1419; border-left: 3px solid #1B4332; padding-left: 1.75rem; }
+  .tag { font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3125rem 0.75rem; font-weight: 500; }
+
+  /* ─── Section Header (prominent step indicator) ───────────────── */
+  .section-header {
+    display: flex; align-items: stretch; gap: 1.25rem;
+    margin-bottom: 2.25rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #0F1419;
+  }
+  .section-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: clamp(4.5rem, 7vw, 6rem);
+    aspect-ratio: 1 / 1;
+    background: #1B4332; color: #FBFAF7;
+    font-weight: 900; font-size: clamp(1.75rem, 3vw, 2.75rem);
+    letter-spacing: -0.04em;
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+    flex-shrink: 0;
+  }
+  .section-label {
+    display: flex; align-items: center;
+    font-weight: 800;
+    font-size: clamp(1.375rem, 2.4vw, 2rem);
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: #0F1419;
+    line-height: 1;
+  }
+  .section-header.on-dark { border-bottom-color: #FBFAF7; }
+  .section-header.on-dark .section-num { background: #FBFAF7; color: #0F1419; }
+  .section-header.on-dark .section-label { color: #FBFAF7; }
+  .marquee { overflow: hidden; position: relative; padding: 1rem 0; }
+  .marquee-track { display: inline-flex; gap: 3rem; animation: marquee 50s linear infinite; white-space: nowrap; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+</style>
+</head>
+<body>
+
+<!-- ─── COMPLIANCE STRIP ───────────────────────────────────────────────────── -->
+<div class="bg-ink text-paper text-sm py-2 px-4 text-center italic" style="letter-spacing:0.02em;">
+  For research use only <span class="dot"></span> Not for human consumption <span class="dot"></span> Laboratory grade
+</div>
+
+<!-- ─── HEADER ─────────────────────────────────────────────────────────────── -->
+<header class="sticky top-0 z-40 bg-paper/95 backdrop-blur border-b border-line">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <a href="#top" class="text-2xl tracking-tight" style="font-weight:600;">Peptidia</a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#wirkung" class="hover:text-muted">Wirkung</a>
+      <a href="#studien" class="hover:text-muted">Studien</a>
+      <a href="#kaufen" class="hover:text-muted">Bestellen</a>
+      <a href="#faq" class="hover:text-muted">FAQ</a>
+    </nav>
+    <a href="#kaufen" class="btn btn-primary !py-2 !px-4 text-sm">Jetzt bestellen</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ─── HERO ───────────────────────────────────────────────────────────────── -->
+<section class="relative border-b border-ink min-h-[92vh] flex flex-col">
+  <!-- Lab record header -->
+  <div class="border-b border-line">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 grid grid-cols-2 md:grid-cols-4 gap-4 eyebrow text-[11px]">
+      <div><span class="text-ink">REC-Nº</span> <span class="dot"></span> LY3437943-001</div>
+      <div><span class="text-ink">CAS</span> <span class="dot"></span> 2381272-73-5</div>
+      <div><span class="text-ink">Form</span> <span class="dot"></span> Lyoph. Powder</div>
+      <div><span class="text-ink">Purity</span> <span class="dot"></span> ≥ 99 % HPLC</div>
+    </div>
+  </div>
+
+  <div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-12 md:py-20 flex flex-col justify-between gap-12">
+    <div>
+      <p class="eyebrow mb-6">Retatrutide <span class="dot"></span> 20 mg <span class="dot"></span> auf Lager</p>
+      <h1 class="h-massive">
+        Drei Rezeptoren.<br>
+        Ein Wirkstoff.<br>
+        <span class="text-muted">In Studien im Schnitt </span><span class="relative inline-block num-fig" style="color:#1B4332;">24,2 %</span><span class="text-muted"> weniger Gewicht.</span>
+      </h1>
+      <p class="mt-8 max-w-2xl lead">
+        Triple-G. Der Wirkstoff, der gerade alles, was Du über Ozempic und Mounjaro weißt, neu definiert. Hunger weg. Energieverbrauch hoch. Fettleber raus. In 48 Wochen, ohne Sport, ohne Hungern.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href="#kaufen" class="btn btn-primary">Jetzt bestellen <span class="num-fig">→ ab 90 €</span></a>
+        <a href="#wirkung" class="btn btn-secondary">So wirkt es</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Compound marquee -->
+  <div class="border-t border-line marquee eyebrow text-muted">
+    <div class="marquee-track">
+      <span>Retatrutide <span class="dot"></span> LY3437943 <span class="dot"></span> CAS 2381272-73-5 <span class="dot"></span> GLP-1 / GIP / Glucagon Triple Agonist <span class="dot"></span> Lyophilized Powder <span class="dot"></span> ≥99 % HPLC <span class="dot"></span> 20 mg / Vial</span>
+      <span>Retatrutide <span class="dot"></span> LY3437943 <span class="dot"></span> CAS 2381272-73-5 <span class="dot"></span> GLP-1 / GIP / Glucagon Triple Agonist <span class="dot"></span> Lyophilized Powder <span class="dot"></span> ≥99 % HPLC <span class="dot"></span> 20 mg / Vial</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PAIN ───────────────────────────────────────────────────────────────── -->
+<section id="diagnose" class="scroll-mt border-b border-line py-20 md:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-12 gap-8 md:gap-12">
+    <div class="md:col-span-4">
+      <div class="section-header"><span class="section-num">01</span><span class="section-label">Diagnose</span></div>
+      <h2 class="h-large">Du hast alles versucht. Es kommt immer wieder zurück.</h2>
+    </div>
+    <div class="md:col-span-7 md:col-start-6 lead space-y-6">
+      <p>Diäten halten Wochen. Sport hilft, bis das Leben dazwischenkommt. Der Hunger gewinnt. Und am Jahresende stehen die Zahlen wieder da, wo sie vorher waren — oder schlechter.</p>
+      <p class="text-ink" style="font-weight:500;">Das liegt nicht an Disziplin. Es liegt an Biologie. Dein Körper hat einen Sollwert, den er verteidigt. Du kämpfst gegen Hormone, die seit Jahrtausenden darauf programmiert sind, Dich am Leben zu halten — nicht schlank.</p>
+      <p>Retatrutide greift genau da ein. An drei Stellen gleichzeitig.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WIRKUNG ────────────────────────────────────────────────────────────── -->
+<section id="wirkung" class="scroll-mt border-b border-line py-20 md:py-32 bg-ink text-paper">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="grid md:grid-cols-12 gap-8 mb-16">
+      <div class="md:col-span-5">
+        <div class="section-header on-dark"><span class="section-num">02</span><span class="section-label">Wirkmechanismus</span></div>
+        <h2 class="h-large">Drei Signale. Gleichzeitig. Deshalb wirkt es so stark.</h2>
+      </div>
+      <div class="md:col-span-6 md:col-start-7 lead" style="color:rgba(251,250,247,0.85);">
+        <p>Semaglutid (Ozempic) bedient <em style="color:#FBFAF7;">einen</em> Rezeptor. Tirzepatid (Mounjaro) <em style="color:#FBFAF7;">zwei</em>. Retatrutide ist der erste Wirkstoff, der <em style="color:#FBFAF7;">alle drei gleichzeitig</em> aktiviert. Das ist nicht graduell besser. Das ist eine neue Wirkstoff-Klasse.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-px" style="background:rgba(251,250,247,0.2);">
+      <article class="bg-ink p-8">
+        <p class="eyebrow mb-3" style="color:rgba(251,250,247,0.55);">▼ Rezeptor 01</p>
+        <h3 class="h-medium mb-4">GLP-1</h3>
+        <p class="leading-relaxed" style="color:rgba(251,250,247,0.82);">Sättigung und langsamere Magenentleerung. Du isst weniger, <em style="color:#FBFAF7;">ohne Dich zu zwingen</em>. Insulin steigt, Heißhunger fällt.</p>
+        <hr class="lab mt-6" style="border-color:rgba(251,250,247,0.2);">
+        <p class="eyebrow mt-4 italic" style="color:rgba(251,250,247,0.5);">Bei Ozempic · Wegovy</p>
+      </article>
+      <article class="bg-ink p-8">
+        <p class="eyebrow mb-3" style="color:rgba(251,250,247,0.55);">▼ Rezeptor 02</p>
+        <h3 class="h-medium mb-4">GIP</h3>
+        <p class="leading-relaxed" style="color:rgba(251,250,247,0.82);">Stabilerer Blutzucker. Keine Crashes mehr nachmittags. Verstärkt die Wirkung von GLP-1, oft mit weniger Nebenwirkungen.</p>
+        <hr class="lab mt-6" style="border-color:rgba(251,250,247,0.2);">
+        <p class="eyebrow mt-4 italic" style="color:rgba(251,250,247,0.5);">Auch bei Mounjaro</p>
+      </article>
+      <article class="p-8 relative" style="background:#1B4332;color:#FBFAF7;">
+        <div class="absolute top-4 right-4 tag" style="background:#0F1419;color:#FBFAF7;">Nur Retatrutide</div>
+        <p class="eyebrow mb-3" style="color:rgba(251,250,247,0.85);">▼ Rezeptor 03</p>
+        <h3 class="h-medium mb-4">Glucagon</h3>
+        <p class="leading-relaxed" style="color:#FBFAF7;"><em style="color:#FBFAF7;">Höherer Grundumsatz.</em> Dein Körper mobilisiert Fett aus der Leber und verbrennt mehr Kalorien — ohne dass Du Sport machen musst.</p>
+        <hr class="lab mt-6" style="border-color:rgba(251,250,247,0.3);">
+        <p class="eyebrow mt-4" style="color:#FBFAF7;">Der entscheidende Unterschied</p>
+      </article>
+    </div>
+
+    <div class="mt-16 text-center">
+      <a href="#kaufen" class="btn btn-light">Jetzt zugreifen <span class="num-fig">— ab 90 € / Vial</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STUDIEN ────────────────────────────────────────────────────────────── -->
+<section id="studien" class="scroll-mt border-b border-line py-20 md:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="grid md:grid-cols-12 gap-8 mb-16">
+      <div class="md:col-span-5">
+        <div class="section-header"><span class="section-num">03</span><span class="section-label">Datenlage</span></div>
+        <h2 class="h-large">Wenn ein Medikament die Werte einer Magen-OP erreicht — und niemand operiert.</h2>
+      </div>
+      <div class="md:col-span-6 md:col-start-7 lead">
+        <p>Phase-2-Daten veröffentlicht im <em>New England Journal of Medicine</em> und in <em>The Lancet</em>. Phase-3 läuft. Bei Zulassung 2026/27 wird die Apotheke 800 €/Monat verlangen.</p>
+        <p class="mt-4 text-muted italic">→ Bis dahin gibt es zwei Wege: warten oder jetzt zugreifen.</p>
+      </div>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="border border-ink mb-16 overflow-x-auto bg-paper">
+      <table class="w-full">
+        <thead class="bg-ink text-paper">
+          <tr>
+            <th class="text-left p-4 eyebrow" style="color:#FBFAF7;">Wirkstoff</th>
+            <th class="text-left p-4 eyebrow" style="color:#FBFAF7;">Hersteller</th>
+            <th class="text-left p-4 eyebrow" style="color:#FBFAF7;">Rezeptoren</th>
+            <th class="text-right p-4 eyebrow" style="color:#FBFAF7;">Gewichtsverlust</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t border-line">
+            <td class="p-4">Semaglutid <span class="text-muted italic">(Ozempic, Wegovy)</span></td>
+            <td class="p-4">Novo Nordisk</td>
+            <td class="p-4">1 <span class="text-muted text-sm italic">(GLP-1)</span></td>
+            <td class="p-4 text-right num-fig">~ 15 % <span class="dot"></span> 68 Wo.</td>
+          </tr>
+          <tr class="border-t border-line">
+            <td class="p-4">Tirzepatid <span class="text-muted italic">(Mounjaro)</span></td>
+            <td class="p-4">Eli Lilly</td>
+            <td class="p-4">2 <span class="text-muted text-sm italic">(GLP-1, GIP)</span></td>
+            <td class="p-4 text-right num-fig">~ 22 % <span class="dot"></span> 22 Wo.</td>
+          </tr>
+          <tr class="border-t border-line" style="background:#1B4332;color:#FBFAF7;">
+            <td class="p-4" style="font-weight:600;">Retatrutide <span class="italic" style="font-weight:400;opacity:0.85;">(Triple-G)</span></td>
+            <td class="p-4" style="font-weight:600;">Eli Lilly</td>
+            <td class="p-4" style="font-weight:600;">3 <span class="text-sm italic" style="opacity:0.75;font-weight:400;">(GLP-1, GIP, Glucagon)</span></td>
+            <td class="p-4 text-right num-fig text-lg" style="font-weight:600;">24,2 % <span class="dot"></span> 48 Wo.</td>
+          </tr>
+          <tr class="border-t border-line text-muted">
+            <td class="p-4">Bariatrische OP <span class="italic" style="opacity:0.7;">(Magenverkleinerung)</span></td>
+            <td class="p-4">— Chirurgie</td>
+            <td class="p-4">—</td>
+            <td class="p-4 text-right num-fig">25 – 30 %</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Three study cards -->
+    <div class="grid md:grid-cols-3 gap-px bg-ink border border-ink">
+      <div class="bg-paper p-8">
+        <p class="eyebrow mb-2">vs. Ozempic <span class="dot"></span> NEJM 2023</p>
+        <div class="num-fig text-5xl mb-4" style="font-weight:700;">+ 60 %</div>
+        <p class="leading-relaxed">stärkerer Gewichtsverlust als bei Semaglutid (Ozempic) in vergleichbaren Studien. Drei Rezeptoren schlagen einen — deutlich.</p>
+      </div>
+      <div class="bg-paper p-8">
+        <p class="eyebrow mb-2">Blutzucker <span class="dot"></span> Lancet 2023</p>
+        <div class="num-fig text-5xl mb-4" style="font-weight:700;">8 → 6 %</div>
+        <p class="leading-relaxed">Triple-G repariert den Stoffwechsel. Selbst Typ-2-Diabetiker kamen zurück aus der Risiko-Zone. Stabilerer Blutzucker, kein Heißhunger, kein Energie-Crash.</p>
+      </div>
+      <div class="bg-paper p-8">
+        <p class="eyebrow mb-2">Fettleber-Subanalyse</p>
+        <div class="num-fig text-5xl mb-4" style="font-weight:700;">86 %</div>
+        <p class="leading-relaxed">der Patienten waren ihre Fettleber nach 48 Wochen <em>komplett los</em>. Es gibt aktuell <em>kein anderes zugelassenes Medikament</em> dafür.</p>
+      </div>
+    </div>
+
+    <div class="mt-16 flex flex-wrap gap-3 justify-center">
+      <a href="#kaufen" class="btn btn-primary">Jetzt bestellen</a>
+      <a href="#faq" class="btn btn-secondary">Häufige Fragen</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ────────────────────────────────────────────────────────────── -->
+<section id="kaufen" class="scroll-mt border-b border-line py-20 md:py-32 bg-paper">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="grid md:grid-cols-12 gap-8 mb-16">
+      <div class="md:col-span-6">
+        <div class="section-header"><span class="section-num">04</span><span class="section-label">Bestellen</span></div>
+        <h2 class="h-large">20 mg pro Vial. Höchste Reinheit. Direkt verfügbar.</h2>
+      </div>
+      <div class="md:col-span-5 md:col-start-8 lead">
+        <p>Eli Lilly verkauft Mounjaro für mindestens <em>400 €/Monat</em> über Privatrezept. Retatrutide wird nach Zulassung ungefähr <em>800 €/Monat</em> kosten. Heute, bei uns, beginnt es bei <em>90 €/Vial</em>.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Bundle 1 -->
+      <article class="bundle p-8 flex flex-col">
+        <p class="eyebrow mb-2">Single</p>
+        <div class="h-medium mb-1">1 Vial</div>
+        <p class="text-muted mb-8 italic">20 mg <span class="dot"></span> zum Antesten</p>
+        <hr class="lab mb-6">
+        <div class="num-fig text-5xl mb-1" style="font-weight:700;">120 €</div>
+        <p class="eyebrow mb-8 num-fig">120 € / Vial</p>
+        <a href="#" class="btn btn-secondary w-full mt-auto">In den Warenkorb</a>
+      </article>
+
+      <!-- Bundle 2 — Featured -->
+      <article class="bundle featured p-8 flex flex-col relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 tag" style="background:#1B4332;color:#FBFAF7;">Beliebt</div>
+        <p class="eyebrow mb-2" style="color:rgba(251,250,247,0.6);">Bundle</p>
+        <div class="h-medium mb-1">2 Vials</div>
+        <p class="mb-8 italic" style="color:rgba(251,250,247,0.65);">2 × 20 mg <span class="dot"></span> die Standard-Kur</p>
+        <hr class="lab mb-6" style="border-color:rgba(251,250,247,0.2);">
+        <div class="flex items-baseline gap-3 mb-1">
+          <div class="num-fig text-5xl" style="font-weight:700;">200 €</div>
+          <div class="price-strike num-fig">240 €</div>
+        </div>
+        <p class="eyebrow mb-8 num-fig" style="color:rgba(251,250,247,0.8);">100 € / Vial <span class="dot"></span> spar 40 €</p>
+        <a href="#" class="btn btn-light w-full mt-auto">In den Warenkorb</a>
+      </article>
+
+      <!-- Bundle 3 -->
+      <article class="bundle p-8 flex flex-col relative">
+        <div class="absolute top-4 right-4 tag" style="border:1px solid #0F1419;background:#FBFAF7;">Bester Preis</div>
+        <p class="eyebrow mb-2">Pack</p>
+        <div class="h-medium mb-1">3 Vials</div>
+        <p class="text-muted mb-8 italic">3 × 20 mg <span class="dot"></span> für volle Wirkdauer</p>
+        <hr class="lab mb-6">
+        <div class="flex items-baseline gap-3 mb-1">
+          <div class="num-fig text-5xl" style="font-weight:700;">270 €</div>
+          <div class="price-strike num-fig">360 €</div>
+        </div>
+        <p class="eyebrow mb-8 num-fig">90 € / Vial <span class="dot"></span> spar 90 €</p>
+        <a href="#" class="btn btn-primary w-full mt-auto">In den Warenkorb</a>
+      </article>
+    </div>
+
+    <!-- Trust strip -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-ink border border-ink">
+      <div class="bg-paper p-6">
+        <p class="eyebrow mb-1">Reinheit</p>
+        <div class="text-xl num-fig">≥ 99 % HPLC</div>
+      </div>
+      <div class="bg-paper p-6">
+        <p class="eyebrow mb-1">Lieferzeit</p>
+        <div class="text-xl num-fig">3 – 5 Werktage</div>
+      </div>
+      <div class="bg-paper p-6">
+        <p class="eyebrow mb-1">Versand</p>
+        <div class="text-xl num-fig">9,99 € <span class="dot"></span> Live-Tracking</div>
+      </div>
+      <div class="bg-paper p-6">
+        <p class="eyebrow mb-1">Bestand</p>
+        <div class="text-xl italic">Auf Lager <span class="dot"></span> sofort</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SPEC SHEET ─────────────────────────────────────────────────────────── -->
+<section id="spec" class="scroll-mt border-b border-line py-20 md:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-12 gap-12">
+    <div class="md:col-span-5">
+      <div class="section-header"><span class="section-num">05</span><span class="section-label">Spec Sheet</span></div>
+      <h2 class="h-large mb-6">Was Du bekommst.</h2>
+      <p class="lead">Lyophilisiertes Pulver in versiegeltem Vial. Steril gefriergetrocknet, lichtgeschützt verpackt. Direkt aus dem Labor — gleiche Wirkstoffklasse, die Eli Lilly für die Phase-3-Studien einsetzt.</p>
+      <div class="mt-8 p-6 border border-line" style="background:#F4F0E6;">
+        <p class="eyebrow mb-2">Wichtig</p>
+        <p class="text-ink/85 leading-relaxed">Bei Bestellung erhältst Du das reine Peptid in Pulverform. Rekonstitution mit bakteriostatischem Wasser muss separat erfolgen. Anleitung liegt bei.</p>
+      </div>
+    </div>
+    <div class="md:col-span-6 md:col-start-7">
+      <div class="border border-line bg-paper">
+        <div class="bg-ink text-paper px-5 py-3 eyebrow" style="color:#FBFAF7;">Spezifikation</div>
+        <dl>
+          <div class="spec-row"><dt class="spec-label">Wirkstoff</dt><dd class="spec-value">Retatrutide (LY3437943)</dd></div>
+          <div class="spec-row"><dt class="spec-label">Klasse</dt><dd class="spec-value">GLP-1 / GIP / Glucagon Tri-Agonist</dd></div>
+          <div class="spec-row"><dt class="spec-label">Molekülmasse</dt><dd class="spec-value num-fig">~ 4,8 kDa</dd></div>
+          <div class="spec-row"><dt class="spec-label">CAS</dt><dd class="spec-value num-fig">2381272-73-5</dd></div>
+          <div class="spec-row"><dt class="spec-label">Reinheit</dt><dd class="spec-value num-fig">≥ 99 % (HPLC)</dd></div>
+          <div class="spec-row"><dt class="spec-label">Form</dt><dd class="spec-value">Lyophilisiertes Pulver</dd></div>
+          <div class="spec-row"><dt class="spec-label">Menge / Vial</dt><dd class="spec-value num-fig">20 mg</dd></div>
+          <div class="spec-row"><dt class="spec-label">CoA</dt><dd class="spec-value">Auf Anfrage</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LOGISTIK ───────────────────────────────────────────────────────────── -->
+<section id="logistik" class="scroll-mt border-b border-line py-20 md:py-32 bg-ink text-paper">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="section-header on-dark"><span class="section-num">06</span><span class="section-label">Logistik</span></div>
+    <h2 class="h-large mb-16 max-w-3xl">Bestellt heute. In drei bis fünf Werktagen bei Dir. Mit Live-Tracking.</h2>
+    <div class="grid md:grid-cols-4 gap-px" style="background:rgba(251,250,247,0.2);">
+      <div class="bg-ink p-8">
+        <p class="eyebrow mb-3" style="color:rgba(251,250,247,0.55);">▼ 01</p>
+        <h3 class="h-medium mb-3">Bestellung</h3>
+        <p class="leading-relaxed" style="color:rgba(251,250,247,0.78);">Vorkasse via Banküberweisung. IBAN und BIC kommen sofort nach Bestellung per Mail.</p>
+      </div>
+      <div class="bg-ink p-8">
+        <p class="eyebrow mb-3" style="color:rgba(251,250,247,0.55);">▼ 02</p>
+        <h3 class="h-medium mb-3">Versand</h3>
+        <p class="leading-relaxed" style="color:rgba(251,250,247,0.78);">Sobald die Zahlung da ist: Versand am gleichen oder nächsten Werktag. Diskret, neutrale Verpackung.</p>
+      </div>
+      <div class="bg-ink p-8">
+        <p class="eyebrow mb-3" style="color:rgba(251,250,247,0.55);">▼ 03</p>
+        <h3 class="h-medium mb-3">Tracking</h3>
+        <p class="leading-relaxed" style="color:rgba(251,250,247,0.78);">Live-Tracking-Link per Mail. Du siehst jeden Schritt bis zur Haustür.</p>
+      </div>
+      <div class="bg-ink p-8">
+        <p class="eyebrow mb-3" style="color:rgba(251,250,247,0.55);">▼ 04</p>
+        <h3 class="h-medium mb-3">Ankunft</h3>
+        <p class="leading-relaxed" style="color:rgba(251,250,247,0.78);">3 – 5 Werktage. Versandkosten 9,99 €. Wenn etwas schiefgeht: melde Dich, wir lösen es.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ────────────────────────────────────────────────────────────────── -->
+<section id="faq" class="scroll-mt border-b border-line py-20 md:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-12 gap-12">
+    <div class="md:col-span-4">
+      <div class="section-header"><span class="section-num">07</span><span class="section-label">FAQ</span></div>
+      <h2 class="h-large">Was die meisten vorher fragen.</h2>
+      <p class="mt-6 lead">Du hast eine Frage, die hier nicht steht? Schreib uns — wir antworten innerhalb von 24 Stunden.</p>
+    </div>
+    <div class="md:col-span-7 md:col-start-6 space-y-4">
+
+      <details class="border border-line p-6 bg-paper">
+        <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
+          <span class="text-lg pr-4" style="font-weight:500;">Was unterscheidet Retatrutide von Ozempic oder Mounjaro?</span>
+          <span class="chev text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-4 text-ink/80 leading-relaxed">
+          <p>Ozempic (Semaglutid) wirkt nur auf den GLP-1-Rezeptor. Mounjaro (Tirzepatid) auf zwei (GLP-1 + GIP). Retatrutide aktiviert <em>alle drei</em> — inkl. Glucagon. Dadurch wird nicht nur der Hunger gedämpft, sondern auch der Energieverbrauch erhöht. In Studien führte das zu ungefähr <em>60 % stärkerem Gewichtsverlust</em> als Semaglutid.</p>
+        </div>
+      </details>
+
+      <details class="border border-line p-6 bg-paper">
+        <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
+          <span class="text-lg pr-4" style="font-weight:500;">Wie wird Retatrutide angewendet?</span>
+          <span class="chev text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-4 text-ink/80 leading-relaxed space-y-2">
+          <p>In der Forschung wird Retatrutide <em>einmal wöchentlich subkutan</em> verabreicht. Die Studien-Dosierungen starteten bei 1–2 mg und stiegen langsam auf bis zu 12 mg. <em>Langsames Aufdosieren</em> ist entscheidend, um Nebenwirkungen zu vermeiden.</p>
+        </div>
+      </details>
+
+      <details class="border border-line p-6 bg-paper">
+        <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
+          <span class="text-lg pr-4" style="font-weight:500;">Wie zahle ich? Wie lange dauert die Lieferung?</span>
+          <span class="chev text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-4 text-ink/80 leading-relaxed">
+          <p>Zahlung per <em>Vorkasse / Banküberweisung</em>. IBAN und BIC erhältst Du sofort nach Bestellung per Mail. Versand sobald die Zahlung eingetroffen ist — meist am gleichen oder nächsten Werktag. Lieferzeit ab Versand: <em>3 – 5 Werktage</em>, deutschlandweit mit Live-Tracking.</p>
+        </div>
+      </details>
+
+      <details class="border border-line p-6 bg-paper">
+        <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
+          <span class="text-lg pr-4" style="font-weight:500;">Wie ist die Qualität geprüft?</span>
+          <span class="chev text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-4 text-ink/80 leading-relaxed">
+          <p>Jede Charge wird per <em>HPLC</em> auf eine Reinheit von <em>≥ 99 %</em> getestet. Das <em>Certificate of Analysis</em> stellen wir auf Anfrage zur Verfügung.</p>
+        </div>
+      </details>
+
+      <details class="border border-line p-6 bg-paper">
+        <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
+          <span class="text-lg pr-4" style="font-weight:500;">Was, wenn etwas mit der Lieferung schiefgeht?</span>
+          <span class="chev text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-4 text-ink/80 leading-relaxed">
+          <p>Schreib uns. Beschädigte oder verlorene Pakete ersetzen wir. Wir verschicken neutral verpackt, versichert und mit Tracking — die Quote ist quasi null. Aber sollte es passieren: melde Dich, wir lösen es <em>ohne Diskussion</em>.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ──────────────────────────────────────────────────────────── -->
+<section id="schluss" class="scroll-mt border-b border-line py-20 md:py-32 bg-paper">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+    <div class="section-header" style="justify-content:center;"><span class="section-num">08</span><span class="section-label">Letzte Chance</span></div>
+    <h2 class="h-large mb-8 max-w-3xl mx-auto">Sobald Retatrutide regulär zugelassen ist, kostet es das <span style="color:#1B4332;font-weight:900;white-space:nowrap;">6-Fache</span> und Du brauchst ein Rezept.</h2>
+    <p class="lead max-w-2xl mx-auto mb-12">
+      Phase-3 läuft. Zulassung wird für 2026 oder 2027 erwartet. Bis dahin: keine Apotheke, kein Privatrezept, kein 800-Euro-Monatspreis. Laborgeprüfte Qualität, fairer Preis, direkt bis zu Dir nach Hause. Diskret verpackt, schnell unterwegs, sofort verfügbar.
+    </p>
+    <a href="#kaufen" class="btn btn-primary !px-10 !py-4 text-base">Jetzt bestellen <span class="num-fig">— ab 90 € / Vial</span></a>
+    <p class="mt-8 eyebrow">Auf Lager <span class="dot"></span> Versand in 1 – 2 Werktagen</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer class="bg-ink text-paper">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+    <div class="grid md:grid-cols-12 gap-12 mb-12">
+      <div class="md:col-span-5">
+        <div class="text-2xl tracking-tight mb-4" style="font-weight:600;">Peptidia</div>
+        <p style="color:rgba(251,250,247,0.7);line-height:1.6;max-width:28rem;">Forschungs-Peptide in Laborqualität. Made for serious self-experimenters. Versand aus Deutschland.</p>
+      </div>
+      <div class="md:col-span-2">
+        <p class="eyebrow mb-4" style="color:rgba(251,250,247,0.5);">Shop</p>
+        <ul class="space-y-2" style="color:rgba(251,250,247,0.85);">
+          <li><a href="#kaufen" class="hover:text-paper">Retatrutide</a></li>
+          <li><a href="#faq" class="hover:text-paper">FAQ</a></li>
+          <li><a href="#studien" class="hover:text-paper">Studien</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <p class="eyebrow mb-4" style="color:rgba(251,250,247,0.5);">Rechtliches</p>
+        <ul class="space-y-2" style="color:rgba(251,250,247,0.85);">
+          <li><a href="/impressum" class="hover:text-paper">Impressum</a></li>
+          <li><a href="/agb" class="hover:text-paper">AGB</a></li>
+          <li><a href="/datenschutz" class="hover:text-paper">Datenschutz</a></li>
+          <li><a href="/widerruf" class="hover:text-paper">Widerruf</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-3">
+        <p class="eyebrow mb-4" style="color:rgba(251,250,247,0.5);">Kontakt</p>
+        <ul class="space-y-2" style="color:rgba(251,250,247,0.85);">
+          <li>support@peptidia.shop</li>
+          <li class="italic" style="color:rgba(251,250,247,0.6);">Antwort innerhalb 24 h</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="mb-8" style="border-color:rgba(251,250,247,0.2);">
+
+    <div class="grid md:grid-cols-2 gap-6 eyebrow mb-8" style="color:rgba(251,250,247,0.6);">
+      <div>© 2026 Peptidia <span class="dot"></span> Laboratory Grade Research Peptides</div>
+      <div class="md:text-right">For research use only <span class="dot"></span> Not for human consumption</div>
+    </div>
+
+    <div class="p-6 border text-sm leading-relaxed" style="border-color:rgba(251,250,247,0.2);color:rgba(251,250,247,0.65);">
+      <strong style="color:rgba(251,250,247,0.85);" class="block mb-3 eyebrow">Disclaimer</strong>
+      Die hier angebotenen Substanzen sind ausschließlich für Forschungszwecke bestimmt. Sie sind nicht zur Anwendung am Menschen oder zur Eigenanwendung freigegeben. Die genannten Studien stammen aus peer-reviewten Quellen (New England Journal of Medicine 2023; The Lancet 2023; Phase-3-Studien laufen). Peptidia macht keine Heilversprechen oder therapeutischen Aussagen. Käufer sind verantwortlich für die Einhaltung aller geltenden Gesetze in ihrer Region.
+    </div>
+  </div>
+</footer>
+
+<!-- ─── MOBILE STICKY BAR ──────────────────────────────────────────────────── -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 z-50 px-4 py-3 flex items-center gap-3" style="backdrop-filter: blur(8px); background: rgba(251,250,247,0.92); border-top: 1px solid #0F1419;">
+  <div class="flex-1">
+    <p class="eyebrow">Ab</p>
+    <div class="text-xl num-fig" style="font-weight:500;">90 € / Vial</div>
+  </div>
+  <a href="#kaufen" class="btn btn-primary !py-3 !px-5 text-sm">Bestellen</a>
+</div>
+
+</body>
+</html>
